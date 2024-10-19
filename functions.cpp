@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-int my_strlen(char * str);
-int my_strcmp(char * str);
+#include <ctype.h>
 
-int main(void){
+int my_strlen(char * str);
+int my_strcmp(const char * str1, const char * str2);
+
+int main(){
     char str[50] = {};
     char str_strcmp[50] = {};
 
@@ -11,37 +13,57 @@ int main(void){
     scanf("%s", str);
     printf("Number of characters per line: %d\n", my_strlen(str));
 
-    puts("Enter this line: 'check input for correctness'");
-    scanf("%s", str_strcmp);
-    if (my_strcmp(str_strcmp) == 0){
-        puts("The line entered is correct!");
+   char * str1[6] = {"ALEKSEY", "ALEKSANDER", "ARTEM", "ANTON", "ANDREY"};
+
+    bool flag;
+
+    for (int i = 5; i >= 0; i--)
+    {
+        flag = 1;
+        for (int j = 0; j < i - 1; j++)
+        {
+            int res = my_strcmp(str1[j], str1[j+1]);
+            if (res > 0)
+            {
+                char * buffer = str1[j];
+                str1[j] = str1[j + 1];
+                str1[j + 1] = buffer;
+                flag = 0;
+            }
+        }
+        if (flag == 1)
+        break;
     }
-    else{
-        puts("The line was entered incorrectly!");
+
+
+    for (int i = 0; i < 5; i++){
+        printf("str1[%d] = %s\n", i, str1[i]);
     }
 }
 
- int my_strlen(char * str){
+int my_strlen(char * str){
     int i = 0;
     while(str[i] != '\0'){
         i += 1;
     }
     return i;
- }
+}
 
- int my_strcmp(char * str_strcmp){
+int my_strcmp(const char * str1, const char * str2)
+{
     int i = 0;
-    unsigned int count_correct = 0;
-    char line[] = "check input for correctness";
-    while(str_strcmp[i] != '\0')
-    {
-       if (str_strcmp[i] == line[i])
-        count_correct += 1;
-       i += 1;
+
+    while (str1[i] && str2[i]){
+
+        if (tolower(str1[i]) != tolower(str2[i]))
+        {
+           break;
+        }
+
+        i++;
     }
 
-    if (count_correct == strlen(str_strcmp))
-        return 0;
+    return str1[i] - str2[i];
+}
 
-    return 1;
- }
+// TODO strcpy strchr

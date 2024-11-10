@@ -5,7 +5,7 @@ int my_strcmp(const char* str1, const char* str2);
 
 int main(){
 
-    char * str[6] = {"ALEKSEY", "ALEKSANDER", "ARTEM", "ANTON", "ANDREY"};
+    char * str[5] = {"ALEKSEY", "ALEKSANDER", "ARTEM", "ANTON", "ANDREY"};
 
     bool flag;
 
@@ -26,7 +26,7 @@ int main(){
         if (flag == 1)
         break;
     }
-
+                                                
 
     for (int i = 0; i < 5; i++){
         printf("str1[%d] = %s\n", i, str[i]);
